@@ -1,0 +1,6 @@
+com\projects\game\RandomMinePlacementStrategy.class
+com\projects\game\Cell.class
+com\projects\game\GameEngine.class
+com\projects\game\MineSweeper.class
+com\projects\game\MinePlacementStrategy.class
+com\projects\game\CellFactory.class
