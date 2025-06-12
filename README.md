@@ -35,9 +35,9 @@ mvn test
 ```
 
 # How to play
-1. The game will prompt for grid size. Allowable size is 2-9.
+1. The game will prompt for grid size. Allowable size is 2 to 9.
 2. The game will prompt for number of mines. Maximum amount of mines are 35% of the total squares.
 3. Reveal squares by Row-Column coordinates (e.g. B3)
 4. Objective is to reveal squares and avoid mines. Game ends when:
 - You hit a mine (lose)
-- You uncover non-mine squares (win)
+- You uncover all non-mine squares (win)
