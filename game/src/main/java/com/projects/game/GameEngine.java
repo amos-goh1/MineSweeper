@@ -90,11 +90,11 @@ public class GameEngine {
 
 	// reveals a cell, if this cell is not a mine and has no neighbouring mines, add neighbouring cells to reveal. the logic applies to added neighbour cell.
 	private void reveal(int row, int col) {
-		Cell start = board[row][col];
-
 		if (row < 0 || row >= size || col < 0 || col >= size || board[row][col].isRevealed()) { // return if row or column is outside grid, or cell is already revealed.
 			return;
 		}
+		
+		Cell start = board[row][col];
 
 		if (start.isMine()) {
 			start.reveal();

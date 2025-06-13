@@ -76,6 +76,28 @@ public class MinesweeperTest {
 		assertTrue(getCell(game, 2, 0).isRevealed());
 		assertTrue(getCell(game, 2, 2).isRevealed());
 	}
+	
+	// Test to ensure no exception is thrown for passing in negative coordinates
+	@Test
+	void testRevealOutsideBoard_NegativeCoordinates() {
+		List<int[]> mines = Collections.singletonList(new int[] { 0, 0 });
+		GameEngine game = new GameEngine(3, 1, new FixedMinePlacementStrategy(mines));
+	
+		assertDoesNotThrow(() -> {
+			invokeReveal(game, -1, -1);
+		});
+	}
+	
+	// Test to ensure no exception is thrown for passing in large coordinates
+	@Test
+	void testRevealOutsideBoard_LargeCoordinates() {
+		List<int[]> mines = Collections.singletonList(new int[] { 0, 0 });
+		GameEngine game = new GameEngine(3, 1, new FixedMinePlacementStrategy(mines));
+	
+		assertDoesNotThrow(() -> {
+			invokeReveal(game, 10, 10);
+		});
+	}
 
 	// Helper method to access private cells using reflection
 	private Cell getCell(GameEngine game, int row, int col) {
