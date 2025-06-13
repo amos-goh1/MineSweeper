@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class RandomMinePlacementStrategy implements MinePlacementStrategy {
 	@Override
-	public List<int[]> getMinePositions(int size, int totalMines) {
+	public List<int[]> getMinePositions(int size, int totalMines) { // randomly assign mines to cells on board based on the size of the board and number of mines.
 		Set<String> used = new HashSet<>();
 		List<int[]> mines = new ArrayList<>();
 		Random rand = new Random();

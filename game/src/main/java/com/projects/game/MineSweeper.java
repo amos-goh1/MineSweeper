@@ -15,8 +15,8 @@ public class MineSweeper {
 			int mines = 0;
 			
 			size = mineSweeper.getGridSize(scanner);
-			
-			int maxMines = (int) (size * size / 100.0 * 35); // truncate any decimal (round down)
+
+			int maxMines = (int) Math.floor(size * size * 0.35);
 
 			mines = mineSweeper.getNoOfMines(scanner, maxMines);
 			
@@ -36,6 +36,7 @@ public class MineSweeper {
 		scanner.close();
 	}
 	
+	// prompts player for grid size between 2 and 9.
 	public int getGridSize(Scanner scanner) {
 
 		while (true) {
@@ -51,6 +52,7 @@ public class MineSweeper {
 		}
 	}
 	
+	// prompts player for number of mines. value must be 1 <= x <= maxMines
 	public int getNoOfMines(Scanner scanner, int maxMines) {
 		
 		while (true) {
@@ -61,14 +63,11 @@ public class MineSweeper {
 				continue;
 			}
 			int mines = Integer.valueOf(input);
-			if (mines <= maxMines && mines != 0) {
+			if (mines >= 1 && mines <= maxMines) {
 				return mines;
 			} else {
-				if (maxMines == 1) {
-					System.out.println("Please enter 1.");
-				} else {
-					System.out.println("Please enter a value between 1 and " + maxMines + ".");
-				}
+				System.out.println("Please enter a valid positive value. Maximum value is: " + maxMines + ".");
+				
 			}
 		}
 	}
