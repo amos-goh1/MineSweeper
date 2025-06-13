@@ -21,21 +21,19 @@ public class GameEngine {
 		this.totalMines = totalMines;
 		this.mineStrategy = mineStrategy;
 		this.board = new Cell[size][size];
-		initialiseBoard();
+		initializeBoard();
 		placeMines();
 		calculateAndPopulateMineCounts();
 	}
 
-	// initialises each cell on the board.
-	private void initialiseBoard() {
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				board[row][col] = CellFactory.createCell();
+	private void initializeBoard() {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				board[i][j] = CellFactory.createCell();
 			}
 		}
 	}
 
-	// places mines on the board using strategy. 
 	private void placeMines() {
 		List<int[]> mines = mineStrategy.getMinePositions(size, totalMines);
 		for (int[] pos : mines) {
@@ -43,23 +41,22 @@ public class GameEngine {
 		}
 	}
 
-	// calculates the number of adjacent (neighbouring) mines for each individual cell.
 	private void calculateAndPopulateMineCounts() {
-		for (int r = 0; r < size; r++) {
-			for (int c = 0; c < size; c++) {
-				if (board[r][c].isMine())
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				if (board[i][j].isMine())
 					continue;
 				int count = 0;
 				for (int dr = -1; dr <= 1; dr++) { // right-left
 					for (int dc = -1; dc <= 1; dc++) { // above-below
-						int nr = r + dr; // neighbour cell coordinate (row)
-						int nc = c + dc; // neighbour cell coordinate (column)
+						int nr = i + dr; // neighbour cell coordinate (row)
+						int nc = j + dc; // neighbour cell coordinate (column)
 						if (nr >= 0 && nr < size && nc >= 0 && nc < size && board[nr][nc].isMine()) { // check if neighbouring cell is within grid, and whether it is a mine
 							count++;
 						}
 					}
 				}
-				board[r][c].setAdjacentMines(count);
+				board[i][j].setAdjacentMines(count);
 			}
 		}
 	}
@@ -88,7 +85,6 @@ public class GameEngine {
 		}
 	}*/
 
-	// reveals a cell, if this cell is not a mine and has no neighbouring mines, add neighbouring cells to reveal. the logic applies to added neighbour cell.
 	private void reveal(int row, int col) {
 		Cell start = board[row][col];
 
@@ -136,8 +132,9 @@ public class GameEngine {
 		}
 	}
 
-	// iterate through all cells to check if there are non-mine cells not yet revealed. if there are then game has not been won.
 	private boolean checkWin() {
+
+		// iterate through all cells to check if any mine has not yet been revealed. if there are mines not yet revealed then game has not been won.
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (!board[i][j].isMine() && !board[i][j].isRevealed()) {
@@ -148,7 +145,6 @@ public class GameEngine {
 		return true;
 	}
 
-	// primary method of the game for player to interact with and reveal cell based on user input.
 	public void play(Scanner scanner) {
 		while (!gameOver) {
 			if (!printedOnce) {
@@ -193,7 +189,6 @@ public class GameEngine {
 		}
 	}
 
-	// iteratively reveal all cells on board.
 	private void revealAll() {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -202,24 +197,23 @@ public class GameEngine {
 		}
 	}
 
-	// prints board to console for player to view (revealed and/or hidden).
 	public void printBoard() {
 		System.out.print("  ");
-		for (int i = 0; i < size; i++) {
-			System.out.print((i + 1) + " ");
+		for (int j = 0; j < size; j++) {
+			System.out.print((j + 1) + " ");
 		}
 		System.out.println();
-		for (int r = 0; r < size; r++) {
-			System.out.print((char) ('A' + r) + " ");
-			for (int c = 0; c < size; c++) {
-				if (!board[r][c].isRevealed()) {
+		for (int i = 0; i < size; i++) {
+			System.out.print((char) ('A' + i) + " ");
+			for (int j = 0; j < size; j++) {
+				if (!board[i][j].isRevealed()) {
 					System.out.print(HIDDEN + " ");
-				} else if (board[r][c].isMine()) {
+				} else if (board[i][j].isMine()) {
 					System.out.print(MINE + " ");
-				} else if (board[r][c].getAdjacentMines() == 0) {
+				} else if (board[i][j].getAdjacentMines() == 0) {
 					System.out.print(EMPTY + " ");
 				} else {
-					System.out.print(board[r][c].getAdjacentMines() + " ");
+					System.out.print(board[i][j].getAdjacentMines() + " ");
 				}
 			}
 			System.out.println();
