@@ -134,7 +134,7 @@ public class GameEngine {
 
 	private boolean checkWin() {
 
-		// iterate through all cells to check if any mine has not yet been revealed. if there are mines not yet revealed then game has not been won.
+		// iterate through all cells to check if there are non-mine cells not yet revealed. if there are then game has not been won.
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (!board[i][j].isMine() && !board[i][j].isRevealed()) {
